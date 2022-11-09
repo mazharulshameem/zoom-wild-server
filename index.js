@@ -34,6 +34,22 @@ async function run() {
       const services = await cursor.toArray();
       res.send(services);
     });
+    //add services
+    app.post("/services", async (req, res) => {
+      const result = await serviceCollection.insertOne(req.body);
+      console.log(result);
+      if (result.insertedId) {
+        res.send({
+          success: true,
+          message: " Service Added Successfully",
+        });
+      } else {
+        res.send({
+          success: false,
+          error: "Couldn't create the Services",
+        });
+      }
+    });
   } finally {
   }
 }
