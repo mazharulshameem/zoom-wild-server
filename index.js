@@ -42,9 +42,15 @@ async function run() {
       res.send(services);
     });
     //add review
+    app.get("/reviews", async (req, res) => {
+      const query = {};
+      const cursor = reviewCollection.find(query);
+      const reviews = await cursor.toArray();
+      res.send(reviews);
+    });
     app.post("/reviews", async (req, res) => {
-      const review = req.body;
-      const result = reviewCollection.insertOne(review);
+      const userReview = req.body;
+      const result = reviewCollection.insertOne(userReview);
       res.send(result);
     });
     // add services
