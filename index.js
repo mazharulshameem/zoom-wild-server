@@ -58,6 +58,12 @@ async function run() {
       const result = reviewCollection.insertOne(userReview);
       res.send(result);
     });
+    app.delete("/reviews/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const result = await reviewCollection.deleteOne(query);
+      res.send(result);
+    });
     // add services
     app.post("/services", async (req, res) => {
       const result = await serviceCollection.insertOne(req.body);
